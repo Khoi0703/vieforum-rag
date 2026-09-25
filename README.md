@@ -43,20 +43,12 @@ CSV Dataset (dữ liệu diễn đàn)
 ```
 
 **Vì sao chạy được nội bộ hoàn toàn?**
-- LLM & embedding gọi tới Ollama qua `http://localhost:11434` — đây là **server chạy ngay trên
-  máy bạn**, không phải API cloud, không mất phí, không gửi dữ liệu ra ngoài.
+- LLM & embedding gọi tới Ollama qua `http://localhost:11434`.
 - Đồ thị tri thức dùng `NetworkXStorage` (mặc định có sẵn trong `lightrag/`) — lưu thẳng file
-  JSON trong `working_dir`, không cần cài/chạy Neo4j hay bất kỳ database server nào.
-- Vector index dùng `NanoVectorDB` — cũng là file JSON local.
+  JSON trong `working_dir`.
+- Vector index dùng `NanoVectorDB`.
 - `lightrag/llm.py` đã được chỉnh để **không bắt buộc cài** `torch`, `transformers`, `openai`,
-  `aioboto3` nữa (các thư viện này chỉ cần khi dùng backend HuggingFace-local/OpenAI/Bedrock,
-  không dùng ở bản Ollama-only này) → cài đặt nhẹ và nhanh hơn nhiều.
-
-> ⚠️ Lưu ý duy nhất về mạng: `tiktoken` cần tải một bảng mã hoá (~2MB) từ internet **một lần**
-> ở lần chạy đầu tiên (không phải mỗi lần chạy, không liên quan tới việc trả lời câu hỏi). Nếu
-> máy chạy hoàn toàn cách ly mạng, hãy chạy lần đầu ở máy có mạng rồi copy cache của `tiktoken`
-> (`~/.cache/tiktoken` hoặc biến `TIKTOKEN_CACHE_DIR`) sang máy offline.
-
+  `aioboto3.
 ---
 
 ## ⚙️ Chế Độ Truy Vấn
@@ -74,11 +66,11 @@ CSV Dataset (dữ liệu diễn đàn)
 
 | Thành phần | Công nghệ | Ghi chú |
 |---|---|---|
-| LLM | **Ollama** (qwen2.5 / llama3.1 / vinallama...) | Chạy local, đổi model tuỳ ý |
-| Embedding | **Ollama** (nomic-embed-text / mxbai-embed-large) | Chạy local |
-| RAG framework | `LightRAG` (trong `lightrag/`) | Đã patch để không cần torch/transformers |
-| Vector storage | `NanoVectorDB` | File JSON local |
-| Graph storage | `NetworkX` | File JSON local — **không cần Neo4j** |
+| LLM | **Ollama** (qwen2.5 / llama3.1 / vinallama...) | |
+| Embedding | **Ollama** (nomic-embed-text / mxbai-embed-large) | |
+| RAG framework | `LightRAG` (trong `lightrag/`) | |
+| Vector storage | `NanoVectorDB` | File JSON local | |
+| Graph storage | `NetworkX` | File JSON local | |
 | API backend | `FastAPI` + `Uvicorn` | |
 | Frontend | `Streamlit` | |
 | Xử lý dữ liệu | `Pandas`, `Regex` | |
@@ -95,13 +87,13 @@ LightRAG/
 │   ├── operate.py             # Graph operations
 │   ├── prompt.py              # Prompt templates
 │   ├── storage.py             # Storage backends (NetworkX, NanoVectorDB, Json)
-│   └── kg/                    # Backend đồ thị khác (Neo4j, Chroma...) - KHÔNG dùng mặc định
+│   └── kg/                    # Backend đồ thị khác (Neo4j, Chroma...)
 ├── notebooks/
 │   ├── ScrapeData.ipynb
 │   └── FINAL_NOTEBOOK.ipynb
 ├── app.py                     # Streamlit frontend (đã sửa giữ session cookie)
-├── server.py                  # FastAPI backend (dùng Ollama, không Neo4j)
-├── requirements.txt           # Đã bỏ torch/transformers/neo4j, thêm ollama
+├── server.py                  # FastAPI backend (dùng Ollama,)
+├── requirements.txt           
 ├── .env.example
 └── LICENSE
 ```
@@ -115,7 +107,6 @@ LightRAG/
 - Python 3.9+
 - **Ollama** đã cài (https://ollama.com/download) — Windows/Mac/Linux đều có
 - RAM tối thiểu 8GB (16GB nếu chạy model 7B trên CPU sẽ mượt hơn); có GPU thì càng nhanh
-- Không cần Docker, không cần Neo4j, không cần API key nào
 
 ### 1. Cài Ollama và tải model
 
@@ -147,8 +138,6 @@ pip install -r requirements.txt
 ```bash
 cp .env.example .env
 ```
-
-Không cần điền API key nào — chỉnh nếu muốn đổi model hoặc địa chỉ Ollama:
 
 ```env
 WORKING_DIR=./workdir
