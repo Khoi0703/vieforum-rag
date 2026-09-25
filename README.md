@@ -1,21 +1,5 @@
 # 🇻🇳 vieforum-rag — Local Vietnamese Forum RAG Chatbot
 
-![Local Only](https://img.shields.io/badge/deployment-local--only-22c55e)
-![No API Key](https://img.shields.io/badge/API%20key-not%20required-2563eb)
-![License](https://img.shields.io/badge/license-MIT-lightgrey)
-
-Hệ thống Retrieval-Augmented Generation (RAG) dạng đồ thị (graph-based), xây dựng để phân tích
-và trả lời câu hỏi từ dữ liệu thảo luận diễn đàn bằng tiếng Việt — **chạy hoàn toàn trên máy/mạng
-nội bộ, không gọi bất kỳ API cloud trả phí nào** (không ZhipuAI, không OpenAI, không cần tài
-khoản Neo4j Aura).
-
-
-> Bản gốc dùng ZhipuAI GLM-4-Flash (API cloud) + embedding tải từ HuggingFace + Neo4j. Bản này
-> thay LLM & embedding bằng **Ollama chạy local**, và thay Neo4j bằng storage đồ thị nội bộ
-> (NetworkX, lưu file JSON ngay trong thư mục làm việc) — không cần cài thêm database server nào.
-
----
-
 ## 📌 Tổng Quan
 
 Pipeline gồm:
