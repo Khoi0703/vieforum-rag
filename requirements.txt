@@ -1,0 +1,37 @@
+# ==== Core RAG framework (dependency nội bộ của lightrag/) ====
+tqdm
+aiohttp
+pydantic
+tenacity
+xxhash
+networkx
+nano-vectordb
+hnswlib
+graspologic
+tiktoken          # cần internet 1 LẦN DUY NHẤT để tải bảng mã hoá (~2MB) khi chạy lần đầu
+
+# ==== LLM & Embedding chạy NỘI BỘ qua Ollama (không dùng API trả phí) ====
+ollama            # https://ollama.com - cần cài & chạy Ollama trên máy/mạng nội bộ
+
+# ==== API & Web server ====
+fastapi
+uvicorn
+streamlit
+python-dotenv
+requests
+
+# ==== Data scraping (dùng trong ScrapeData.ipynb, nếu có) ====
+beautifulsoup4
+cloudscraper
+pandas
+
+# ==== Visualization (dùng trong notebook EDA) ====
+matplotlib
+wordcloud
+
+# ==== KHONG CON CAN sau khi chuyen sang chay noi bo ====
+# torch, transformers, accelerate  -> chi can neu muon tu chay model HuggingFace local
+#                                      thay vi qua Ollama (nang hon nhieu, khong khuyen khich)
+# neo4j                            -> chi can neu doi graph_storage sang "Neo4JStorage";
+#                                      mac dinh da dung NetworkXStorage (file cuc bo)
+# zhipuai, openai, aioboto3        -> chi can neu quay lai dung API cloud (ZhipuAI/OpenAI/Bedrock)
